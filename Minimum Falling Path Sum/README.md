@@ -35,7 +35,7 @@ We use this code to compare each element (A[row][column]) to the elements from t
 Then we add the minimum element from the previous row to the current one.
 ``` java
 if(column == 0)  // first column
-	A[row][column] += Math.min(A[row-1][column] , A[row-1][column+1]);
+    A[row][column] += Math.min(A[row-1][column] , A[row-1][column+1]);
 else if(column == A[0].length-1)  // last column
     A[row][column] += Math.min(A[row-1][column] , A[row-1][column-1]);
 else 
@@ -49,21 +49,21 @@ minValue = Math.min(minValue , A[row-1][i]);
 ## Code
 ``` java
 public int minFallingPathSum(int[][] A) {
-    int row = A.length;
-    int column = A[0].length;
-    for(int i = 1 ; i < row ; i++) {
-        for(int j = 0 ; j < column ; j++) {
-            if(j == 0)
-                A[i][j] += Math.min(A[i-1][j] , A[i-1][j+1]);
+    int i = A.length;
+    int j = A[0].length;
+    for(int row = 1 ; row < i ; i++) {
+        for(int column = 0 ; column < j ; j++) {
+            if(column == 0)
+                A[row][column] += Math.min(A[row-1][column] , A[row-1][column+1]);
             else if(j == column - 1)
-            	A[i][j] += Math.min(A[i-1][j] , A[i-1][j-1]);
+            	A[row][column] += Math.min(A[row-1][column] , A[row-1][column-1]);
             else
-            	A[i][j] += Math.min(A[i-1][j+1] , Math.min(A[i-1][j] , A[i-1][j-1]));
+            	A[row][column] += Math.min(A[row-1][column+1] , Math.min(A[row-1][column] , A[row-1][column-1]));
         }
     }
     
     int minValue = Integer.MAX_VALUE;
-    for(int i = 0 ; i < column ; i++)
+    for(int i = 0 ; i < j ; i++)
         minValue = Math.min(minValue , A[row-1][i]);
     return minValue;
 }
